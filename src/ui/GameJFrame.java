@@ -7,6 +7,17 @@ public class GameJFrame extends JFrame {
 
     public GameJFrame() {
 
+        initJFrame();
+
+        initJMenuBar();
+
+
+        //show the interface
+        this.setVisible(true);
+    }
+
+
+    public void initJFrame() {
         //set tittle
         this.setTitle("jigsaw game V1.0");
 
@@ -21,7 +32,9 @@ public class GameJFrame extends JFrame {
 
         //The program stops when I try to exit the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
+    public void initJMenuBar() {
         //default  menu
         JMenuBar jMenuBar = new JMenuBar();
 
@@ -34,9 +47,16 @@ public class GameJFrame extends JFrame {
 
         JMenuItem accountItem = new JMenuItem("Official Accounts");
 
+        functionJMenu.add(replayItem);
+        functionJMenu.add(reLoginItem);
+        functionJMenu.add(closeItem);
 
-        //show the interface
-        this.setVisible(true);
+        aboutUsJMenu.add(accountItem);
+
+        jMenuBar.add(functionJMenu);
+        jMenuBar.add(aboutUsJMenu);
+
+        this.setJMenuBar(jMenuBar);
     }
 
 

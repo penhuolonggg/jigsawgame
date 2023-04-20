@@ -2,6 +2,8 @@ import ui.GameJFrame;
 import ui.LoginJFrame;
 import ui.RegisterJFrame;
 
+import javax.swing.*;
+
 public class APP {
     public static void main(String[] args) {
         /* 把JFrame理解成一个JavaBean类*/
@@ -10,7 +12,8 @@ public class APP {
 
         //new LoginJFrame();
 
-        new GameJFrame();
+        //new GameJFrame();
+
 
 
 
