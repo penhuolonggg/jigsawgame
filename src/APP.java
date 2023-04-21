@@ -4,6 +4,7 @@ import ui.RegisterJFrame;
 
 
 import javax.swing.*;
+import java.util.Random;
 
 public class APP {
     public static void main(String[] args) {
@@ -14,7 +15,5 @@ public class APP {
 //        new LoginJFrame();
 
         new GameJFrame();
-
-
     }
 }
