@@ -1,15 +1,17 @@
 package ui;
 
-import jdk.jshell.execution.Util;
 import tool.Tools;
 
 import javax.swing.*;
-import javax.tools.Tool;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameJFrame extends JFrame {
 
-    private int[][] data = new int[4][4];
+
+    //二维数组记录图片的顺序
+     private int[][] data = new int[4][4];
+
 
     //main interface
     public GameJFrame() {
@@ -18,7 +20,7 @@ public class GameJFrame extends JFrame {
         initJFrame();
         //初始化菜单
         initJMenuBar();
-        //初始化图片（打乱）
+        //初始化数据（打乱图片）
         initOrder();
         //初始化图片
         initImage();
@@ -57,11 +59,13 @@ public class GameJFrame extends JFrame {
         JMenu functionJMenu = new JMenu("Function");
         JMenu aboutUsJMenu = new JMenu("About us");
 
+
+
         JMenuItem replayItem = new JMenuItem("Replay");
         JMenuItem reLoginItem = new JMenuItem("ReLogin");
         JMenuItem closeItem = new JMenuItem("Close Game");
 
-        JMenuItem accountItem = new JMenuItem("Official Accounts");
+        JMenuItem accountItem = new JMenuItem("Private WeChat");
 
         functionJMenu.add(replayItem);
         functionJMenu.add(reLoginItem);
@@ -82,6 +86,7 @@ public class GameJFrame extends JFrame {
                 JLabel jLabel = new JLabel(new ImageIcon("image/animal/animal2/" + data[i][j] + ".jpg"));
                 jLabel.setBounds(105 * j, 105 * i, 105, 105);
                 this.getContentPane().add(jLabel);
+
             }
         }
 
@@ -96,3 +101,12 @@ public class GameJFrame extends JFrame {
 
 
 }
+
+
+
+
+
+
+
+
+
