@@ -3,6 +3,8 @@ package ui;
 import tool.Tools;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.event.*;
 
 
@@ -45,6 +47,11 @@ public class GameJFrame extends JFrame {
 
         //The program stops when I try to exit the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //set background
+        JLabel background = new JLabel(new ImageIcon("image/background.png"));
+        background.setBounds(40, 40, 508, 560);
+        this.getContentPane().add(background);
 
         //set shortcut key
         //EXIT退出快捷键
@@ -100,15 +107,20 @@ public class GameJFrame extends JFrame {
 
     private void initImage() {
 
+        //添加图片
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
-                JLabel jLabel = new JLabel(new ImageIcon("image/animal/animal2/" + data[i][j] + ".jpg"));
-                jLabel.setBounds(105 * j, 105 * i, 105, 105);
+                JLabel jLabel = new JLabel(new ImageIcon("image/animal/animal6/" + data[i][j] + ".jpg"));
+                //指定图片位置，加的数字是偏移量，为了美观
+                jLabel.setBounds(105 * j + 83, 105 * i + 134, 105, 105);
+                //给图像设置边框
+                jLabel.setBorder(new BevelBorder(BevelBorder.RAISED));
+                //添加到界面中
                 this.getContentPane().add(jLabel);
-
+                //将图片置于background图片的上面
+                this.getContentPane().setComponentZOrder(jLabel, 0);
             }
         }
-
 
     }
 
