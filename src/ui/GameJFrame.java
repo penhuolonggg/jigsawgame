@@ -3,14 +3,14 @@ package ui;
 import tool.Tools;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
 
 public class GameJFrame extends JFrame {
 
 
     //二维数组记录图片的顺序
-     private int[][] data = new int[4][4];
+    private int[][] data = new int[4][4];
 
 
     //main interface
@@ -24,7 +24,6 @@ public class GameJFrame extends JFrame {
         initOrder();
         //初始化图片
         initImage();
-
 
         //show the interface
         this.setVisible(true);
@@ -47,6 +46,27 @@ public class GameJFrame extends JFrame {
         //The program stops when I try to exit the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //set shortcut key
+        //EXIT退出快捷键
+        this.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    System.exit(0);
+                }
+            }
+        });
+
         //取消默认局中放置
         this.setLayout(null);
     }
@@ -58,7 +78,6 @@ public class GameJFrame extends JFrame {
 
         JMenu functionJMenu = new JMenu("Function");
         JMenu aboutUsJMenu = new JMenu("About us");
-
 
 
         JMenuItem replayItem = new JMenuItem("Replay");
