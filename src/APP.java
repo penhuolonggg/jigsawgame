@@ -12,7 +12,7 @@ public class APP {
 
 //        new RegisterJFrame();
 
-//        new LoginJFrame();
+        new LoginJFrame();
 
         new GameJFrame();
     }
