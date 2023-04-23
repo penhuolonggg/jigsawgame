@@ -1,5 +1,7 @@
 package tool;
 
+import ui.GameJFrame;
+
 import java.util.Random;
 
 public final class Tools {
@@ -25,7 +27,12 @@ public final class Tools {
         int[][] result = new int[4][4];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
-                result[i][j] = array[i * 4 + j];
+                if (array[i * 4 + j] == 16) {
+                    GameJFrame.x = i;
+                    GameJFrame.y = j;
+                } else {
+                    result[i][j] = array[i * 4 + j];
+                }
             }
         }
         return result;

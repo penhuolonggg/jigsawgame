@@ -1,10 +1,5 @@
 import ui.GameJFrame;
 import ui.LoginJFrame;
-import ui.RegisterJFrame;
-
-
-import javax.swing.*;
-import java.util.Random;
 
 public class APP {
     public static void main(String[] args) {
@@ -12,7 +7,7 @@ public class APP {
 
 //        new RegisterJFrame();
 
-        new LoginJFrame();
+//        new LoginJFrame();
 
         new GameJFrame();
     }
