@@ -6,9 +6,8 @@ public class APP {
         /* 把JFrame理解成一个JavaBean类*/
 
 //        new RegisterJFrame();
-
 //        new LoginJFrame();
-
         new GameJFrame();
+
     }
 }

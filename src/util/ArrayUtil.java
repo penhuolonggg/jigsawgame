@@ -1,11 +1,11 @@
-package tool;
+package util;
 
 import ui.GameJFrame;
 
 import java.util.Random;
 
-public final class Tools {
-    private Tools() {
+public final class ArrayUtil {
+    private ArrayUtil() {
 
     }
 
