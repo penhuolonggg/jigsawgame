@@ -4,9 +4,8 @@ import tool.Tools;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 public class GameJFrame extends JFrame implements KeyListener {
@@ -14,8 +13,19 @@ public class GameJFrame extends JFrame implements KeyListener {
 
     //二维数组记录图片的顺序
     private int[][] data = new int[4][4];
+    //正确的顺序
+    private final int[][] CORRECT_DATA = {
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 11, 12},
+            {13, 14, 15, 0}
+    };
     //x,y记录空白图片位置
-    public static int x,y;
+    public static int x, y;
+    //记录图片位置
+    private String imagePath = "image/girl/girl6/";
+    private final String BACKGROUND_PATH = "image/background.png";
+    private final String WIN_PATH = "image/win.png";
 
 
     //main interface
@@ -51,28 +61,7 @@ public class GameJFrame extends JFrame implements KeyListener {
         //The program stops when I try to exit the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //set shortcut key
-        //EXIT退出快捷键
-        this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    System.exit(0);
-                }
-            }
-        });
-
-        //给整个界面添加键盘监听事件（游戏的玩法-移动图片）
+        //给整个界面添加键盘监听事件（包括游戏的玩法-移动图片，快捷键等）
         this.addKeyListener(this);
 
         //取消默认局中放置
@@ -106,39 +95,55 @@ public class GameJFrame extends JFrame implements KeyListener {
         this.setJMenuBar(jMenuBar);
     }
 
+    private void initOrder() {
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+        Tools.shuffleArray(array);
+        data = Tools.splitArray(array);
+    }
+
     private void initImage() {
-        //清空界面
+        /*先运行的代码在图层的最上面*/
+
+        //1.清空界面
         this.getContentPane().removeAll();
 
-        //set background
-        JLabel background = new JLabel(new ImageIcon("image/background.png"));
-        background.setBounds(40, 40, 508, 560);
-        this.getContentPane().add(background);
 
-        //添加图片
+        //2.判断是否胜利
+        if (Tools.equalArray(data, CORRECT_DATA)) {
+            JLabel jLabel=new JLabel(new ImageIcon(WIN_PATH));
+            jLabel.setBounds(203,283,197,73);
+            this.getContentPane().add(jLabel);
+            this.getContentPane().setComponentZOrder(jLabel, 0);
+        }
+
+
+        //3.添加图片（顺序为当前data存储的数据）
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
-                JLabel jLabel = new JLabel(new ImageIcon("image/animal/animal7/" + data[i][j] + ".jpg"));
+                JLabel jLabel = new JLabel(new ImageIcon(imagePath + data[i][j] + ".jpg"));
                 //指定图片位置，加的数字是偏移量，为了美观
                 jLabel.setBounds(105 * j + 83, 105 * i + 134, 105, 105);
                 //给图像设置边框
                 jLabel.setBorder(new BevelBorder(BevelBorder.RAISED));
                 //添加到界面中
                 this.getContentPane().add(jLabel);
-                //将图片置于background图片的上面
-                this.getContentPane().setComponentZOrder(jLabel, 0);
             }
         }
 
-        //刷新界面
+        //4.设置背景图片
+        setBackground();
+
+        //5.刷新界面
         this.getContentPane().repaint();
 
     }
 
-    private void initOrder() {
-        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-        Tools.shuffleArray(array);
-        data = Tools.splitArray(array);
+
+    private void setBackground() {
+        //set background
+        JLabel background = new JLabel(new ImageIcon(BACKGROUND_PATH));
+        background.setBounds(40, 40, 508, 560);
+        this.getContentPane().add(background);
     }
 
 
@@ -150,48 +155,75 @@ public class GameJFrame extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
+        int code = e.getKeyCode();
+
+        //当按住A不松时，查看完整图片
+        if (code == KeyEvent.VK_A) {
+            //清空界面
+            this.getContentPane().removeAll();
+            //设置完整图片
+            JLabel jLabel = new JLabel(new ImageIcon(imagePath + "all.jpg"));
+            jLabel.setBounds(83, 134, 420, 420);
+            this.getContentPane().add(jLabel);
+            //设置背景图片
+            setBackground();
+            //刷新界面
+            this.getContentPane().repaint();
+        }
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
+//        System.out.println(code);
         if (code == 38) {
             System.out.println("向上移动");
-            if(x<3){
-                data[x][y]=data[x+1][y];
-                data[x+1][y]=0;
+            if (x < 3) {
+                data[x][y] = data[x + 1][y];
+                data[x + 1][y] = 0;
                 x++;
                 initImage();
             }
         } else if (code == 40) {
             System.out.println("向下移动");
-            if(x>0){
-                data[x][y]=data[x-1][y];
-                data[x-1][y]=0;
+            if (x > 0) {
+                data[x][y] = data[x - 1][y];
+                data[x - 1][y] = 0;
                 x--;
                 initImage();
             }
         } else if (code == 37) {
             System.out.println("向左移动");
-            if(y<3){
-                data[x][y]=data[x][y+1];
-                data[x][y+1]=0;
+            if (y < 3) {
+                data[x][y] = data[x][y + 1];
+                data[x][y + 1] = 0;
                 y++;
                 initImage();
             }
         } else if (code == 39) {
             System.out.println("向右移动");
-            if(y>0){
-                data[x][y]=data[x][y-1];
-                data[x][y-1]=0;
+            if (y > 0) {
+                data[x][y] = data[x][y - 1];
+                data[x][y - 1] = 0;
                 y--;
                 initImage();
             }
+        } else if (code == KeyEvent.VK_ESCAPE) {
+            System.out.println("EXIT");
+            System.exit(0);
+        } else if (code == KeyEvent.VK_A) {
+            initImage();
+        } else if (code == KeyEvent.VK_W) {
+            System.out.println("作弊码");
+            data = Tools.copyArray(CORRECT_DATA);
+            x = 3;
+            y = 3;
+            initImage();
         }
 
     }
-
 
 
 }
